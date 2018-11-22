@@ -33,7 +33,7 @@ describe Bookmarks do
   describe '.delete' do
     it 'deletes a bookmark' do
       bookmark = Bookmarks.create(url: "http://www.makersacademy.com", title: "Makers Academy")
-      
+
       bookmarks = Bookmarks.list
       expect(bookmarks).not_to be_empty
 
@@ -41,6 +41,20 @@ describe Bookmarks do
       bookmarks = Bookmarks.list
 
       expect(bookmarks).to be_empty
+    end
+  end
+
+  describe '.update' do
+    it 'deletes a bookmark' do
+      bookmark = Bookmarks.create(url: "http://www.makersacademy.com", title: "Makers Academy")
+
+      bookmark = Bookmarks.update(id: bookmark.id, title: "New Academy", url: "http:/na.com")
+
+      persisted_data = persisted_data(id: bookmark.id)
+      expect(bookmark).to be_a Bookmarks
+      expect(bookmark.id).to eq persisted_data['id']
+      expect(bookmark.title).to eq 'New Academy'
+      expect(bookmark.url).to eq 'http:/na.com'
     end
   end
 

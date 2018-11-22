@@ -3,7 +3,7 @@ require './lib/bookmarks'
 
 class BookmarkManager < Sinatra::Base
   enable :method_override
-  
+
   get '/' do
     'Bookmark Manager'
   end
@@ -24,6 +24,17 @@ class BookmarkManager < Sinatra::Base
 
   delete '/bookmarks/:id' do
     Bookmarks.delete(id: params[:id])
+    redirect '/bookmarks'
+  end
+
+  get '/bookmarks/:id/update' do
+    @bookmark_id = params[:id]
+    p params
+    erb :'bookmarks/update'
+  end
+
+  patch '/bookmarks/:id' do
+    Bookmarks.update(id: params[:id], title: params[:title], url: params[:url])
     redirect '/bookmarks'
   end
 
