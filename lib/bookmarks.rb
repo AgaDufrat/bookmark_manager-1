@@ -28,13 +28,21 @@ class Bookmarks
   def self.delete(id:)
     connection = connect()
 
-    connection.exec("DELETE FROM bookmarks WHERE id = #{id}")
+    connection.exec("DELETE FROM bookmarks WHERE id = '#{id}'")
   end
 
   def self.update(id:, title:, url:)
     connection = connect()
 
     result = connection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}' WHERE id = #{id} RETURNING id, url, title")
+
+    Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
+  def self.find(id:)
+    connection = connect()
+
+    result = connection.exec("SELECT * FROM bookmarks WHERE id = '#{id}'")
 
     Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end
@@ -46,5 +54,4 @@ class Bookmarks
       connection = PG.connect(dbname: 'bookmark_manager')
     end
   end
-
 end

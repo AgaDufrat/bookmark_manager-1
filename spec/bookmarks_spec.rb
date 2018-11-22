@@ -58,4 +58,14 @@ describe Bookmarks do
     end
   end
 
+  describe '.find' do
+    it 'finds a bookmark' do
+      bookmark = Bookmarks.create(url: "http://www.makersacademy.com", title: "Makers Academy")
+      bookmark2 = Bookmarks.find(id: bookmark.id)
+      expect(bookmark2.id).to eq bookmark.id
+      expect(bookmark2.url).to eq bookmark.url
+      expect(bookmark2.title).to eq bookmark.title
+    end
+  end
+
 end
