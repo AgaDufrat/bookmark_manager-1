@@ -6,6 +6,7 @@ require 'sinatra/flash'
 class BookmarkManager < Sinatra::Base
   enable :method_override
   enable :sessions
+  register Sinatra::Flash
 
   get '/' do
     'Bookmark Manager'
