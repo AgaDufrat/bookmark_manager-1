@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%= flash[:notice] %>
 <ul>
   <% @bookmarks.each do |bookmark| %>
     <li class='bookmark' id="bookmark-<%= bookmark.id %>" >
@@ -9,7 +10,7 @@
         <input type='hidden' name='_method' value='DELETE'/>
         <input type='submit' value='Delete' />
       </form>
-      
+
       <form action="/bookmarks/<%= bookmark.id %>/update" method="get">
         <input type='submit' value='Update' />
       </form>
